@@ -1,7 +1,7 @@
 /*abre e fecha o menu*/
 const nav = document.querySelector('#header nav')
 const toggle = document.querySelectorAll('nav .toggle')
-console.log(document.querySelectorAll('nav .toggle'))
+
 for (const element of toggle) {
     element.addEventListener('click', function() {
         nav.classList.toggle('show')
@@ -37,12 +37,18 @@ const swiper = new Swiper('.swiper-container', {
         },
         mousewheel: true,
         keyboard: true,
+        breakpoints: {
+            767: {
+                slidesPerView: 2,
+                setWrapperSize: true
+            }
+        }
     })
     /*carregar pagina durante a rolagem scrollreveal*/
 const scrollReveal = ScrollReveal({
     origin: 'top',
     distance: '30px',
-    duration: 1000,
+    duration: 700,
     reset: true,
 })
 scrollReveal.reveal(
@@ -56,10 +62,34 @@ scrollReveal.reveal(
 /* botao voltar para o topo*/
 function backToTop() {
     const backToTopButton = document.querySelector('.to-top')
-    if (window.scrollY >= 500) {
+    if (window.scrollY >= 560) {
         backToTopButton.classList.add('show')
     } else {
         backToTopButton.classList.remove('show')
+    }
+}
+const sections = document.querySelectorAll('main section[id]')
+
+function activateMenuAtCurrentSection() {
+    const checkpoint = window.pageYOffset + (window.innerHeight / 8) * 4
+
+    for (const section of sections) {
+        const sectionTop = section.offsetTop
+        const sectionHeight = section.offsetHeight
+        const sectionId = section.getAttribute('id')
+
+        const checkpointStart = checkpoint >= sectionTop
+        const checkpointEnd = checkpoint <= sectionTop + sectionHeight
+
+        if (checkpointStart && checkpointEnd) {
+            document
+                .querySelector('nav ul li a[href*=' + sectionId + ']')
+                .classList.add('active')
+        } else {
+            document
+                .querySelector('nav ul li a[href*=' + sectionId + ']')
+                .classList.remove('active')
+        }
     }
 }
 
