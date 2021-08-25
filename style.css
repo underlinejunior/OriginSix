@@ -2,6 +2,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            overflow-x: hidden;
         }
         
         a {
@@ -35,15 +36,13 @@
         
         body {
             font: 400 1rem "DM Sans", sans-serif;
-            color: --var (--text-color);
+            color: var(--text-color);
             background-color: var(--body-color);
-            -webkit-font-smothing: antialiased;
         }
         
         .title {
             font: 700 1.875rem "Poppins", sans-serif;
             color: var(--title-color);
-            -webkit-font-smothing: auto;
         }
         
         .button {
@@ -75,7 +74,7 @@
         #header {
             border-bottom: 1px solid#e4e4e4;
             margin-bottom: 2rem;
-            width: 100%;
+            width: 100vw;
             position: fixed;
             z-index: 100;
             top: 0;
@@ -96,7 +95,7 @@
             height: var(--header-height);
             align-items: center;
             justify-content: space-between;
-            width: 100%;
+            width: 100vw;
         }
         
         nav ul li {
@@ -107,7 +106,8 @@
             transition: color 0.3s;
         }
         
-        nav ul li a:hover {
+        nav ul li a:hover,
+        nav ul li a.active {
             color: var(--base-color);
         }
         
@@ -120,7 +120,8 @@
             transition: width 0.3s;
         }
         
-        nav ul li a:hover::after {
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
             width: 100%;
         }
         
@@ -150,6 +151,7 @@
             left: 0;
             display: grid;
             place-content: center;
+            z-index: 101;
         }
         
         nav.show ul.grid {
@@ -212,7 +214,7 @@
         }
         
         .section {
-            padding: 5rem 0;
+            padding: calc(5rem + var(--header-height)) 0;
         }
         
         .section .title {
@@ -430,6 +432,7 @@
             align-items: center;
         }
         
+        #contact .button i,
         #contact ul li i {
             font-size: 1.5rem;
             margin-right: 0.625rem;
@@ -442,6 +445,10 @@
         
         .logo-alt span {
             color: var(--body-color);
+        }
+        
+        footer.section {
+            padding: 4rem 0;
         }
         
         footer .logo {
@@ -476,7 +483,7 @@
             position: fixed;
             right: 1rem;
             bottom: 1rem;
-            padding: 1rem;
+            padding: .5rem;
             clip-path: circle();
             font-size: 1.5rem;
             line-height: 0;
@@ -492,9 +499,12 @@
             transform: translateY(0);
         }
         
-        @media (min-width: 1120px) {
+        @media (min-width: 700px) {
+            #header {
+                width: 100vw;
+            }
             .container {
-                max-width: 1120px;
+                max-width: 700px;
                 margin-left: auto;
                 margin-right: auto;
             }
@@ -520,13 +530,8 @@
                 display: flex;
                 gap: 2rem;
             }
-            nav .menu ul li a.title {
+            nav ul li a.title {
                 font: 400 1rem var(--body-font);
-                -webkit-font-smoothing: antialiased;
-            }
-            nav .menu ul li a.title.active {
-                font-weight: bold;
-                -webkit-font-smoothing: auto;
             }
             nav .toggle {
                 display: none;

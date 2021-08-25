@@ -68,6 +68,8 @@ function backToTop() {
         backToTopButton.classList.remove('show')
     }
 }
+
+/* Menu ativo conforme a seção visível na página */
 const sections = document.querySelectorAll('main section[id]')
 
 function activateMenuAtCurrentSection() {
@@ -93,8 +95,11 @@ function activateMenuAtCurrentSection() {
     }
 }
 
+
 /* Efeitos no Scroll*/
 window.addEventListener('scroll', function() {
     backToTop()
     headerEffect()
+    activateMenuAtCurrentSection()
+
 })
